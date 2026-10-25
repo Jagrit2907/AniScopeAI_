@@ -1,130 +1,102 @@
-# AniScope AI
+# 🍙 AniScopeAI
 
-**Anime audience intelligence and commercial-opportunity platform** — a B2B decision-support tool for Japanese entertainment companies investigating opportunities in India.
+### From Anime Reviews to Actionable Insights
 
-Built for the challenge *"Converting Japanese Pop Culture & Content Fandom into Sustainable Revenue in India."*
+**AniScopeAI is an AI-powered anime intelligence platform that transforms scattered audience opinions and anime trends into insights for creators, studios, and businesses.**
 
-Workflow: **Discover attention → Understand audience responses → Find an underexplored angle → Shape a localized offer → Explore commercialization → Plan validation → Brief the team.**
-
-AniScope separates **observed data**, **calculated** metrics, **interpretations**, **hypotheses** and **user assumptions**, and labels each on screen. It never invents trends, reviews, Indian market statistics or revenue.
+Instead of simply showing what's popular, AniScopeAI explores **why audiences respond to content, what they want next, and where new opportunities exist.**
 
 ---
 
-## 1. Run it on Windows (VS Code)
+## 🎯 The Problem
 
-Requires **Python 3.10–3.13** ([python.org](https://www.python.org/downloads/); tick "Add python.exe to PATH").
+Anime audiences generate huge amounts of reviews, ratings, and discussions. But turning this information into useful decisions is difficult.
 
-Open the `AniScopeAI` folder in VS Code, then open a terminal (**Terminal → New Terminal**, PowerShell):
+* **For creators:** What themes and storytelling ideas are audiences looking for?
+* **For studios:** Why do viewers like or dislike a particular anime?
+* **For businesses:** Where are the unmet audience needs and potential opportunities?
+* **For analysts:** Which titles are gaining attention, and what might explain their visibility?
 
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+Traditional rankings show what's popular, but popularity alone doesn't explain audience needs or reveal what could come next.
 
-If PowerShell blocks activation, run once: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+## 💡 Our Solution
 
-**Put your data in place.** Copy these files from your dataset builder output into `data\raw\`:
+AniScopeAI brings anime discovery, audience analysis, trend intelligence, and opportunity exploration into one platform.
 
-- `anime_catalog_all_titles.csv` (or `.jsonl` — both work; `.jsonl` is preferred if present)
-- `dataset_manifest.json`
-- `trend_observations_template.csv`, `review_evidence_template.csv`
+It helps users move through a simple journey:
 
-Or leave them where they are and point AniScope at that folder: copy `.env.example` to `.env` and set
+**Discover → Understand → Identify Opportunities → Plan**
 
-```
-ANISCOPE_DATA_DIR=C:\Users\Jagrit mittal\AppData\Local\Programs\Microsoft VS Code\aniscope_data
-```
+### 🔍 What Can You Do?
 
-**Integrate your evidence (once):**
+| Feature                             | What it does                                                               |
+| ----------------------------------- | -------------------------------------------------------------------------- |
+| 📊 **Trending Radar**               | Explore anime trends and visibility.                                       |
+| 💬 **Audience Intelligence**        | Analyze reviews, sentiment, recurring themes, and audience feedback.       |
+| 🔎 **Anime Investigation**          | Explore individual titles and their audience response.                     |
+| 💡 **Creative Opportunity Lab**     | Turn audience insights into potential creative directions.                 |
+| 📈 **Business Opportunity Planner** | Explore business opportunities based on audience needs and market signals. |
+| 📝 **Opportunity Briefs**           | Organize findings into actionable summaries.                               |
 
-```powershell
-python scripts\ingest.py status
-python scripts\ingest.py trends "data\raw\trends_india_batch_*.csv" --geo India
-python scripts\ingest.py audit-mal
-python scripts\ingest.py reviews-kaggle data\raw\reviews.csv --cap 20 --min-reviews 5
-```
+## 🚀 What's Innovative?
 
-Also place `animes.csv` (2020 MAL snapshot) in `data\raw\` for the visibility layer. The 25 Trends titles are linked through `data\mappings\trend_query_map.csv` (MyAnimeList ids, verified). This zip already contains the processed Trends store, so Trending Radar works immediately. See `INTEGRATION_REPORT.md`.
+### 1. Beyond Ratings: Understanding *Why*
 
-**Launch the app (final design):**
+Ratings tell us whether an anime is popular. Review analysis helps investigate the reasons behind audience reactions, including recurring themes, positive experiences, and criticism.
 
-```powershell
-python run_web.py
-```
+### 2. From Audience Feedback to Creative Ideas
 
-Opens http://127.0.0.1:8000 with the cinematic intro, then the six AniScope screens. The original Streamlit interface still works with `streamlit run app.py` — both use the same data, analytics and workspace. See `MERGE_REPORT.md`.
+Instead of stopping at sentiment analysis, AniScopeAI connects audience insights to potential creative opportunities. This helps users explore what kinds of stories, themes, or experiences may deserve further investigation.
 
-**Launch the Streamlit interface (original layout):**
+### 3. Connecting Trends with Business Opportunities
 
-```powershell
-streamlit run app.py
-```
+Anime visibility and audience feedback can provide useful signals for identifying possible gaps, niche interests, and business ideas.
 
-The app opens at http://localhost:8501. If the catalog is missing, the Command Center explains where to put it instead of crashing.
+### 4. One Connected Workflow
 
-**Tests:** `python -m pytest -q`
+Discovery, audience intelligence, creative exploration, and business planning are brought together in a single platform rather than treated as isolated analytics tasks.
 
-## 2. Screens
+**Our core innovation is connecting audience understanding with the next decision—not just reporting what happened.**
 
-| Screen | What it does | Needs |
-| --- | --- | --- |
-| Command Center | Search all catalog records (titles + alternate titles), filter the full catalog, data-coverage counts, Shinigami, recent activity | Catalog |
-| Trending Radar | Import Google Trends CSVs (native format auto-detected), validate, link to catalog, growth vs level, charts, plain-language explanations | Trend observations |
-| Audience Intelligence | Import reviews, evidence overview, aspect praise/criticism with verbatim excerpts, **Hidden Gems & Mixed-Response Analyzer** | Review evidence |
-| Creative Opportunity Lab | Rules-based, editable concept drafts traced to selected themes | Optional finding |
-| Business Opportunity Planner | Localization, monetization & merchandise, distribution, retention; transparent calculator; editable validation plan | User assumptions |
-| Opportunity Brief | 9-section brief assembled from the workspace; Markdown, PDF and CSV export; print-friendly | Whatever exists; gaps are listed |
-| Data & Methods | Files found, column mapping, import log, methods, licences | — |
+## 🧠 How We Use AI, ML & NLP
 
-Selections flow between screens (title, themes, finding, concept, plan, assumptions, validation plan) and are saved to `data/database/workspace.json`.
+* **Machine Learning:** A sentiment classifier categorizes review text into positive, mixed, and negative classes.
+* **Natural Language Processing (NLP):** Review text is analyzed to help uncover recurring themes and audience concerns.
+* **Data Analytics:** Anime visibility and trend observations help explore changes in attention.
+* **Opportunity Analysis:** Audience and trend insights support the exploration of creative and business possibilities.
 
-## 3. Importing evidence
+Our sentiment model uses **TF-IDF text features and Logistic Regression**. Its training labels are derived from user ratings, so its predictions are estimates of rating-related sentiment—not perfect measurements of human emotion.
 
-### Trend observations (Google Trends)
-1. Google Trends → Explore. Region **India**, range **Past 5 years**.
-2. Compare up to 5 titles; keep **one fixed anchor title in every export** so separate exports can be compared. Prefer the *Topic* suggestion over a plain term.
-3. Download the **Interest over time** CSV.
-4. Trending Radar → **Import trend data** → upload. Titles are matched to the catalog by exact title or alternate title; ambiguous or unmatched titles must be linked by you before import.
+## 🛠️ Technology Stack
 
-Any other CSV with date, value and title (or `anime_id`) columns also works through the column-mapping form. Values must be 0–100 indices. `<1` is stored as 0 and flagged.
+* **Python**
+* **Streamlit** — analytics interface
+* **FastAPI** — backend API
+* **HTML, CSS & JavaScript** — custom web interface
+* **Scikit-learn** — sentiment classification
+* **NLP & data analytics** — review and trend analysis
 
-### Review evidence
-Use a source whose terms permit it. The included helper uses the AniList API (free for non-commercial use; no mass collection):
+## 🗺️ How It Works
 
-```powershell
-python scripts\fetch_anilist_reviews.py --ids 154587 21 --per-title 25 --out data\raw\anilist_reviews.csv
-```
+1. **Collect:** Work with available anime catalog, review, and trend data.
+2. **Analyze:** Examine visibility, audience sentiment, and recurring themes.
+3. **Interpret:** Explore what the results may indicate about audience preferences.
+4. **Generate Opportunities:** Use the findings to investigate creative and business directions.
+5. **Plan:** Organize promising findings into briefs and plans.
 
-AniList ids are in the catalog's `anilist.co/anime/<id>` source links. Then Audience Intelligence → **Import review evidence**. Reviews link to the catalog by `anime_id`, MAL id, AniList id, or exact title. *This script could not be run in the build environment (network blocked) — try it on one id first.*
+## 🌟 Who Is It For?
 
-## 4. Methods (what the numbers mean)
+* 🎨 Anime creators and storytellers
+* 🎬 Studios and content planners
+* 📊 Anime researchers and analysts
+* 💼 Entrepreneurs exploring anime-related opportunities
 
-- **Trend momentum** — recent window = last 12 weeks (adjustable) before the latest observation; baseline = the 12 weeks before. Change = mean(recent) − mean(baseline); % only when baseline > 0. Fewer than 6 observations in a window → *insufficient*, not ranked. Missing weeks are never filled.
-- **Visibility vs momentum** — level = recent mean; quadrants split at the median of the compared series. Only meaningful for series on a shared scale.
-- **Sentiment** — VADER (Hutto & Gilbert 2014), a published rule-based English lexicon, used as-is. Not trained or evaluated by this project; no accuracy is claimed. Whole-review labels prefer the reviewer's own score when present.
-- **Aspects** — sentence-level keyword taxonomy (14 aspects, editable in `src/theme_extraction.py`) + sentence sentiment. A stance needs ≥3 polar mentions.
-- **Hidden Gems candidates** — ≥5 reviews, ≥1 mostly-praised aspect, and either a criticised/divided aspect or ≥30% mixed/negative reviews. The *contrast index* is experimental and unvalidated. Candidates are things to investigate, never "underrated" verdicts.
-- **Creative concepts** — rules-based (theme → design levers + seeded generic genre blocks). No external AI service is used.
-- **Calculator** — target audience × reach rate → reached × conversion → customers; revenue, variable cost, contribution, result after fixed costs, break-even. All outputs are illustrative estimates from user-entered assumptions.
+## ⚠️ Limitations
 
-## 5. Data sources and licences
+AniScopeAI supports exploration and decision-making; it does not guarantee audience demand or business success. Results depend on the available data, and sentiment predictions may misinterpret sarcasm, context, or nuanced opinions. Identified opportunities should be validated with real audiences and market research.
 
-- **Anime catalog:** [Anime Offline Database](https://github.com/manami-project/anime-offline-database) (manami-project), snapshot 2026-07-04, licensed under the **Open Data Commons Open Database License (ODbL) v1.0** and **Database Contents License (DbCL) v1.0**. Keep this attribution. A redistributed derived database must also be shared under the ODbL. Catalog scores are cross-site averages from global users without vote counts — not Indian data.
-- **Google Trends:** relative, sampled 0–100 indices; not search volumes, viewers or buyers.
-- **AniList API:** [terms](https://docs.anilist.co/guide/terms-of-use) — free for non-commercial use, no hoarding, commercial use over $150/month needs a licence.
-- **MyAnimeList:** its terms restrict aggregating site content; AniScope does not scrape it.
+---
 
-## 6. Project structure
+### ✨ AniScopeAI
 
-```
-app.py                 navigation, theme, sidebar status
-config/settings.py     paths (env/.env), thresholds
-src/                   data_loader, data_validation, evidence_store, catalog_service, app_data (caching),
-                       trend_analysis, review_analysis, theme_extraction, opportunity_engine,
-                       concept_builder, business_calculator, brief_generator, export_service, state
-views/                 the six screens + Data & Methods
-components/            styles (design system), Shinigami (companion), widgets
-scripts/               build_catalog_from_aod.py, fetch_anilist_reviews.py
-tests/                 unit tests + Streamlit AppTest smoke/workflow tests (synthetic test data only)
-```
+**Understand the audience. Discover the opportunity. Imagine what comes next.**
