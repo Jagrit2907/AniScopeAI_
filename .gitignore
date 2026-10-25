@@ -27,3 +27,15 @@ data/external/
 *.log
 
 data/database/workspace.json
+.venv/
+.venv313/
+venv/
+.env
+.env.*
+!.env.example
+__pycache__/
+.pytest_cache/
+data/raw/
+data/processed/
+data/external/
+*.zip
