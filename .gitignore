@@ -1,0 +1,29 @@
+
+# Virtual environments
+.venv/
+.venv313/
+venv/
+
+# Python cache and tests
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Secrets
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Local datasets and generated data
+data/raw/
+data/processed/
+data/external/
+
+# Temporary files and backups
+*.zip
+*.log
+
+data/database/workspace.json

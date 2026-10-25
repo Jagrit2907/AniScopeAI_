@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AniScope AI · Anime Audience Intelligence for India</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@700;900&display=swap">
+  <!-- Final design styles, unchanged -->
+  <link rel="stylesheet" href="/static/design.css?v=10">
+  <!-- AniScope components, built on the design's variables -->
+  <link rel="stylesheet" href="/static/aniscope.css?v=10">
+  <script>
+    // Auto-show 3D intro on first load; replayable anytime via nav button
+    try {
+      if (localStorage.getItem("aniscope_theme") === "light") {
+        document.documentElement.classList.add("light-theme");
+      }
+      if (!sessionStorage.getItem("kz_naruto_intro_seen") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("intro-active");
+      }
+    } catch (e) { }
+  </script>
+</head>
+
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="icon-leaf" viewBox="0 0 100 100">
+      <path
+        d="M50 15 C30 15 15 30 15 50 C15 70 30 85 50 85 C70 85 85 70 85 50 C85 40 80 32 72 26 C65 21 55 24 50 30 C45 36 46 45 52 49 C57 53 64 51 66 45"
+        fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" />
+      <path d="M15 50 L8 50" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" />
+    </symbol>
+  </svg>
+
+  <!-- Cinematic intro (structure and timing from the final design; text rebranded to AniScope AI) -->
+  <div id="intro" aria-hidden="true">
+    <div class="in-curtain top"></div>
+    <div class="in-curtain bot"></div>
+    <div class="in-glow"></div>
+    <canvas id="intro-canvas-3d"></canvas>
+    <div class="in-panels">
+      <div class="pn pn1"><b>子</b><small>RAT</small></div>
+      <div class="pn pn2"><b>寅</b><small>TIGER</small></div>
+      <div class="pn pn3"><b>午</b><small>HORSE</small></div>
+    </div>
+    <div class="in-jutsu">影分身の術<small>SHADOW CLONE TECHNIQUE</small></div>
+    <div class="in-stage">
+      <div class="in-mark">
+        <svg class="in-ring" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="92" />
+        </svg>
+        <span class="k k-l">観</span><span class="k k-r">観</span><span class="k k-c">観</span>
+      </div>
+      <div class="in-title"><i style="--i:0">A</i><i style="--i:1">N</i><i style="--i:2">I</i><i style="--i:3">S</i><i
+          style="--i:4">C</i><i style="--i:5">O</i><i style="--i:6">P</i><i style="--i:7">E</i></div>
+      <div class="in-prot">AI</div>
+      <div class="in-sub">ANIME AUDIENCE INTELLIGENCE FOR INDIA</div>
+      <div class="in-chips"><span style="--i:0">📈 India trend radar</span><span style="--i:1">💬 Review
+          intelligence</span><span style="--i:2">💎 Hidden gems</span></div>
+    </div>
+    <div class="intro-controls-3d">
+      <button class="btn-intro-ctl" id="btn-sound-toggle" type="button">🔊 Sound: ON</button>
+      <button class="btn-intro-ctl" id="btn-skip-intro" type="button">Skip Intro [Esc]</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <nav>
+      <a class="logo" href="#/command">
+        <div class="logo-icon"><svg viewBox="0 0 100 100">
+            <use href="#icon-leaf" />
+          </svg></div>
+        <span>AniScope AI</span>
+        <span class="logo-tag">Japan × India</span>
+      </a>
+      <ul id="nav-links">
+        <li><a href="#/command" data-view="command">📊 Command</a></li>
+        <li><a href="#/radar" data-view="radar">📈 Radar</a></li>
+        <li><a href="#/audience" data-view="audience">💬 Audience</a></li>
+        <li><a href="#/gems" data-view="gems">💎 Gems</a></li>
+        <li><a href="#/lab" data-view="lab">🎨 Lab</a></li>
+        <li><a href="#/planner" data-view="planner">🧭 Planner</a></li>
+        <li><a href="#/brief" data-view="brief">📄 Brief</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn ghost btn-sm" id="btn-lang-toggle" title="Switch Language / 言語切替">🌐 <span
+            id="lang-btn-text">日本語</span></button>
+        <button class="btn ghost btn-sm" id="btn-theme-toggle" title="Toggle Light / Dark mode"><span
+            id="theme-btn-text">☀️ Light</span></button>
+        <button class="btn ghost btn-sm" id="btn-replay-intro" title="Replay the cinematic opening">⚡ Replay
+          Intro</button>
+        <button class="btn btn-sm" id="btn-status">Data Status</button>
+      </div>
+    </nav>
+
+    <div class="ws-bar" id="ws-bar"></div>
+    <select class="nav-mobile" id="nav-mobile" aria-label="Screen">
+      <option value="command">📊 Command Center</option>
+      <option value="radar">📈 Trending Radar</option>
+      <option value="audience">💬 Audience Intelligence</option>
+      <option value="gems">💎 Hidden Gems</option>
+      <option value="lab">🎨 Creative Lab</option>
+      <option value="planner">🧭 Business Planner</option>
+      <option value="brief">📄 Opportunity Brief</option>
+      <option value="data">🗄 Data &amp; Methods</option>
+    </select>
+
+    <div id="view" aria-live="polite"></div>
+
+    <footer>
+      <div id="footer-text-1"><b>AniScope AI (観)</b> · <a href="#/data" style="color:var(--naruto-gold)">Data &amp;
+          Methods</a></div>
+      <div id="footer-text-2">Decision support from observed data — not forecasts. Catalog: Anime Offline Database (ODbL
+        v1.0 + DbCL v1.0).</div>
+    </footer>
+  </div>
+
+  <!-- Title detail modal -->
+  <div class="modal-overlay" id="title-modal">
+    <div class="modal-window modal-wide">
+      <button class="modal-close" onclick="closeModal('title-modal')">✕</button>
+      <div id="title-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Data status modal -->
+  <div class="modal-overlay" id="status-modal">
+    <div class="modal-window modal-wide">
+      <button class="modal-close" onclick="closeModal('status-modal')">✕</button>
+      <div id="status-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Shinigami companion -->
+  <aside class="Shinigami" id="Shinigami" aria-live="polite"></aside>
+  <div id="toast-container"></div>
+
+  <!-- Final design engine (sound, intro, cursor, toasts, modals), unchanged -->
+  <script src="/static/design-engine.js?v=9"></script>
+  <!-- AniScope screens -->
+  <script src="/static/app.js?v=10"></script>
+</body>
+
+</html>

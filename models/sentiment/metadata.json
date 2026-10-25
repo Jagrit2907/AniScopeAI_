@@ -1,0 +1,130 @@
+{
+  "model_id": "tfidf-logreg-20261024-2324",
+  "created_at": "2026-10-24T23:24:18+00:00",
+  "algorithm": "TF-IDF (word 1-2 grams) + logistic regression (class_weight=balanced)",
+  "labels": [
+    "negative",
+    "mixed",
+    "positive"
+  ],
+  "label_note": "Labels come from reviewers' own 1-10 scores (negative 1-4, mixed 5-6, positive 7-10). The model predicts that rating-derived category from text; it is not a verified human sentiment label.",
+  "split": {
+    "method": "by title (anime_uid), seeded hash",
+    "seed": 42,
+    "test_share": 0.2,
+    "train_reviews": 101328,
+    "test_reviews": 29019,
+    "train_titles": 6517,
+    "test_titles": 1593,
+    "train_distribution": {
+      "negative": 13563,
+      "mixed": 16224,
+      "positive": 71541
+    },
+    "test_distribution": {
+      "negative": 4097,
+      "mixed": 4759,
+      "positive": 20163
+    }
+  },
+  "test_metrics": {
+    "n": 29019,
+    "accuracy": 0.7841,
+    "macro_f1": 0.6835,
+    "per_class": {
+      "negative": {
+        "precision": 0.6339,
+        "recall": 0.7076,
+        "f1": 0.6687,
+        "support": 4097
+      },
+      "mixed": {
+        "precision": 0.4392,
+        "recall": 0.5531,
+        "f1": 0.4896,
+        "support": 4759
+      },
+      "positive": {
+        "precision": 0.9334,
+        "recall": 0.8542,
+        "f1": 0.8921,
+        "support": 20163
+      }
+    },
+    "confusion_matrix": [
+      [
+        2899,
+        988,
+        210
+      ],
+      [
+        1108,
+        2632,
+        1019
+      ],
+      [
+        566,
+        2373,
+        17224
+      ]
+    ]
+  },
+  "majority_baseline": {
+    "predicts": "positive",
+    "n": 29019,
+    "accuracy": 0.6948,
+    "macro_f1": 0.2733,
+    "per_class": {
+      "negative": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4097
+      },
+      "mixed": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4759
+      },
+      "positive": {
+        "precision": 0.6948,
+        "recall": 1.0,
+        "f1": 0.8199,
+        "support": 20163
+      }
+    },
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        4097
+      ],
+      [
+        0,
+        0,
+        4759
+      ],
+      [
+        0,
+        0,
+        20163
+      ]
+    ]
+  },
+  "data": {
+    "file": "reviews.csv",
+    "rows_read": 192112,
+    "duplicate_text": 169,
+    "duplicate_review_id": 61593,
+    "invalid_or_missing_score": 2,
+    "missing_or_short_text": 1,
+    "usable": 130347,
+    "titles": 8110,
+    "label_distribution": {
+      "negative": 17660,
+      "mixed": 20983,
+      "positive": 91704
+    }
+  }
+}
